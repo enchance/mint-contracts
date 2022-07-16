@@ -10,7 +10,7 @@ contract GatewayManager {
     mapping(uint => string) public gateways;
     Counters.Counter internal gatewayCounter;
 
-    error InvalidGateway();
+    error InvalidGatewayError();
 
 
     constructor() {
@@ -23,7 +23,7 @@ contract GatewayManager {
      * @example                 addGateway('https://gateway.pinata.cloud/<CID HERE>/{id}.json')
      */
     function _addGateway(string memory _uri) internal virtual {
-        if(bytes(_uri).length == 0) revert InvalidGateway();
+        if(bytes(_uri).length == 0) revert InvalidGatewayError();
         uint gatewayId = gatewayCounter.current();
         gateways[gatewayId] = _uri;
         gatewayCounter.increment();
