@@ -5,7 +5,8 @@ import "@nomicfoundation/hardhat-toolbox";
 // Plugins
 import "@nomiclabs/hardhat-solhint";
 import 'hardhat-test-utils'
-
+import 'hardhat-abi-exporter'
+import 'hardhat-log-remover'
 
 
 dotenv.config();
@@ -43,7 +44,6 @@ const config: HardhatUserConfig = {
             url: process.env.MUMBAI_URL || "",
             accounts: [process.env.DEPLOY_PRIVATE_KEY!]
         }
-        
     },
     gasReporter: {
         enabled: process.env.REPORT_GAS !== undefined,
@@ -53,6 +53,23 @@ const config: HardhatUserConfig = {
         apiKey: process.env.ETHERSCAN_API_KEY,
         // apiKey: process.env.POLYGONSCAN_API_KEY,
     },
+    abiExporter: [
+        {
+            path: './abi/json',
+            format: "json",
+            pretty: true,
+        },
+        {
+            path: './abi/minimal',
+            format: "minimal",
+            pretty: true,
+        },
+        {
+            path: './abi/fullName',
+            format: "fullName",
+            pretty: true,
+        },
+    ]
 };
 
 export default config;
